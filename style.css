@@ -1,1 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
 
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #fff1f7, #f3f0ff, #eefcff);
+  font-family: "Quicksand", sans-serif;
+  color: #2b2b2b;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main game container */
+#game {
+  width: min(700px, 92vw);
+  padding: 28px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Scene text */
+#scene-text {
+  font-family: "EB Garamond", serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #3a2f3f;
+  letter-spacing: 0.2px;
+}
+
+/* Choices layout */
+#choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Buttons */
+button {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ffd6e7, #e6ddff);
+  color: #3a2f3f;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.01);
+  background: linear-gradient(135deg, #ffe1ee, #ece6ff);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+button:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+/* Inventory + stats panels */
+#inventory,
+#stats {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,0.1);
+}
+
+/* Soft “oracle glow” effect */
+#game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  filter: blur(60px);
+  background: radial-gradient(circle at 30% 20%, #ffd6e7, transparent 40%),
+              radial-gradient(circle at 70% 80%, #d9d0ff, transparent 40%),
+              radial-gradient(circle at 50% 50%, #c9f7ff, transparent 50%);
+  opacity: 0.6;
+}
