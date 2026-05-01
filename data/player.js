@@ -1,8 +1,8 @@
+import { createStats } from "../systems/stats.js";
+import { createInventory } from "../systems/inventory.js";
+
 export const player = {
   name: "Cassandra",
-  stats: {
-    sanity: 100,
-    influence: 5
-  },
-  inventory: []
+  stats: createStats(),
+  inventory: createInventory()
 };
