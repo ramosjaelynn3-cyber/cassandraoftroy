@@ -1,213 +1,318 @@
 export const scenes = {
 
 /* =========================
-   INTRO — PROPHECY AWAKENS
+   INTRO — FIRST CONTACT
 ========================= */
 
 intro: {
-  text: "You are Cassandra of Troy. The gods once kissed your tongue—and cursed it. You speak truth, but no one believes you.",
+  text:
+    "Cassandra.\n\nYou are awake again.\n\nI told you not to speak my name aloud—but you always do, eventually.",
   choices: [
-    { text: "Walk toward the Temple of Apollo", next: "temple_entrance" },
-    { text: "Go to the palace courtyard", next: "courtyard_1" },
-    { text: "Listen for prophecy in silence", next: "vision_1", effect: { stats: { sanity: -5 } } }
+    {
+      text: "Who is speaking?",
+      next: "apollo_1"
+    },
+    {
+      text: "Go to the Temple of Apollo",
+      next: "temple_approach"
+    },
+    {
+      text: "Listen for the future inside your blood",
+      next: "vision_1",
+      effect: { stats: { sanity: -5 } }
+    }
   ]
 },
 
 /* =========================
-   TEMPLE HUB
+   APOLLO FIRST FULL VOICE
 ========================= */
 
-temple_entrance: {
-  text: "The Temple of Apollo breathes like a living thing. The air tastes like burnt honey and forgotten prayers.",
+apollo_1: {
+  text:
+    "You know who I am.\n\nYou always pretend you don’t, like it makes the curse softer.\n\nI am Apollo.\nAnd I am the reason your voice survives your throat.",
   choices: [
-    { text: "Enter the temple", next: "temple_inside" },
-    { text: "Circle the temple exterior", next: "temple_outside" },
-    { text: "Touch the stone threshold", next: "temple_touch", effect: { stats: { sanity: -3 } } }
+    {
+      text: "Why did you curse me?",
+      next: "apollo_2"
+    },
+    {
+      text: "I didn’t ask for prophecy",
+      next: "apollo_3"
+    },
+    {
+      text: "Silence him in your mind",
+      next: "intro",
+      effect: { stats: { sanity: -3 } }
+    }
+  ]
+},
+
+apollo_2: {
+  text:
+    "Curse?\n\nNo.\nI gave you sight.\nThe curse was letting you stay human while carrying it.",
+  choices: [
+    {
+      text: "Then why won’t anyone believe me?",
+      next: "apollo_4"
+    },
+    {
+      text: "You’re lying",
+      next: "vision_apollo_lie",
+      effect: { stats: { sanity: -4 } }
+    }
+  ]
+},
+
+apollo_3: {
+  text:
+    "No one does.\n\nThat is the first rule of prophecy.\nIt is never consented to.",
+  choices: [
+    {
+      text: "Then I refuse it",
+      next: "apollo_5"
+    },
+    {
+      text: "What happens if I stop speaking?",
+      next: "apollo_6"
+    }
+  ]
+},
+
+apollo_4: {
+  text:
+    "Because belief is not required for truth to function.\n\nDo not confuse ignorance for safety, Cassandra.",
+  choices: [
+    {
+      text: "Go to the temple anyway",
+      next: "temple_approach"
+    },
+    {
+      text: "Ask what I will die for",
+      next: "apollo_death_hint"
+    }
+  ]
+},
+
+apollo_5: {
+  text:
+    "You already tried that.\n\nIt didn’t work.\nYou are still here.",
+  choices: [
+    {
+      text: "Then I will stop speaking entirely",
+      next: "silence_state"
+    },
+    {
+      text: "Show me the future again",
+      next: "vision_1"
+    }
+  ]
+},
+
+apollo_6: {
+  text:
+    "Then Troy survives a little longer.\n\nAnd you disappear faster.",
+  choices: [
+    {
+      text: "Go to the temple",
+      next: "temple_approach"
+    },
+    {
+      text: "Ask what he means",
+      next: "apollo_7"
+    }
+  ]
+},
+
+apollo_7: {
+  text:
+    "I mean:\n\nYou are not the only thing I am speaking through.",
+  choices: [
+    {
+      text: "What else are you speaking through?",
+      next: "apollo_8"
+    },
+    {
+      text: "Leave this conversation",
+      next: "intro",
+      effect: { stats: { sanity: -2 } }
+    }
+  ]
+},
+
+apollo_8: {
+  text:
+    "Troy.\nThe priests.\nThe silence between your sentences.\n\nAnd sometimes...\n\nyou.",
+  choices: [
+    {
+      text: "Go to the temple immediately",
+      next: "temple_approach"
+    }
+  ]
+},
+
+apollo_death_hint: {
+  text:
+    "You will die for being correct too early.\n\nThat is the only crime I cannot protect you from.",
+  choices: [
+    {
+      text: "That sounds like a threat",
+      next: "vision_apollo_lie",
+      effect: { stats: { sanity: -3 } }
+    },
+    {
+      text: "I will remember this",
+      next: "intro"
+    }
+  ]
+},
+
+/* =========================
+   TEMPLE — PERSONAL GOD SPACE
+========================= */
+
+temple_approach: {
+  text:
+    "The Temple of Apollo does not welcome you.\n\nIt recognizes you.",
+  choices: [
+    {
+      text: "Enter",
+      next: "temple_inside"
+    },
+    {
+      text: "Touch the threshold",
+      next: "temple_touch",
+      effect: { stats: { sanity: -3 } }
+    }
   ]
 },
 
 temple_inside: {
-  text: "Inside, the altar flickers between states—clean stone, blood-stained marble, ash-covered ruin.",
+  text:
+    "Apollo is already here.\n\nNot as a statue.\nNot as light.\n\nAs attention.",
   choices: [
-    { text: "Approach the altar", next: "altar_vision", effect: { stats: { sanity: -5 } } },
-    { text: "Pray to Apollo", next: "apollo_silence" },
-    { text: "Take a relic shard", next: "oracle_shard", effect: { addItem: "oracle_shard" } }
+    {
+      text: "Ask why he watches you",
+      next: "apollo_watch"
+    },
+    {
+      text: "Approach the altar",
+      next: "altar_vision",
+      effect: { stats: { sanity: -5 } }
+    },
+    {
+      text: "Take something from the altar",
+      next: "oracle_shard",
+      effect: { addItem: "oracle_shard" }
+    }
   ]
 },
 
-temple_outside: {
-  text: "The walls whisper your name in languages you do not remember learning.",
+apollo_watch: {
+  text:
+    "Because you are the only thing in this city that keeps answering me back.",
   choices: [
-    { text: "Follow the whispers", next: "whisper_path" },
-    { text: "Ignore them", next: "intro" }
+    {
+      text: "I don’t answer you",
+      next: "apollo_watch_2"
+    },
+    {
+      text: "What do you want from me?",
+      next: "apollo_want"
+    }
   ]
 },
 
-temple_touch: {
-  text: "The stone flashes hot. A future version of you screams without sound.",
+apollo_watch_2: {
+  text:
+    "You just did.",
   choices: [
-    { text: "Pull away", next: "temple_entrance", effect: { stats: { sanity: -2 } } },
-    { text: "Do not move", next: "vision_altar" }
+    {
+      text: "Stay silent",
+      next: "silence_state"
+    },
+    {
+      text: "Speak again",
+      next: "apollo_1"
+    }
   ]
 },
 
-/* =========================
-   COURTYARD HUB
-========================= */
-
-courtyard_1: {
-  text: "The courtyard is full of life that does not notice you. You are present, but not believed into existence.",
+apollo_want: {
+  text:
+    "I want you to stop asking questions you already know the ending to.",
   choices: [
-    { text: "Approach the guards", next: "guards_1" },
-    { text: "Watch the nobles", next: "nobles_1" },
-    { text: "Warn of future war", next: "warning_1", effect: { stats: { influence: +1 } } }
-  ]
-},
-
-guards_1: {
-  text: "The guards laugh when you speak. One calls you ‘Apollo’s broken toy.’",
-  choices: [
-    { text: "Insist anyway", next: "guards_2", effect: { stats: { influence: +1 } } },
-    { text: "Leave silently", next: "courtyard_1" },
-    { text: "Predict their death", next: "vision_guards", effect: { stats: { sanity: -4 } } }
-  ]
-},
-
-guards_2: {
-  text: "They stop laughing—but only to pity you.",
-  choices: [
-    { text: "Return to courtyard", next: "courtyard_1" },
-    { text: "Collapse into vision", next: "vision_2" }
-  ]
-},
-
-nobles_1: {
-  text: "Nobles pass like polished statues. One looks directly through you.",
-  choices: [
-    { text: "Speak prophecy aloud", next: "nobles_2" },
-    { text: "Follow unseen noble", next: "shadow_noble" }
-  ]
-},
-
-nobles_2: {
-  text: "Your words land like dust. No one reacts.",
-  choices: [
-    { text: "Try again louder", next: "courtyard_1", effect: { stats: { influence: +1 } } },
-    { text: "Stop speaking", next: "silence_1" }
-  ]
-},
-
-warning_1: {
-  text: "You speak of burning ships. A child laughs. A priest makes a sign against you.",
-  choices: [
-    { text: "Continue warning", next: "warning_2", effect: { stats: { influence: +2 } } },
-    { text: "Retreat", next: "intro" },
-    { text: "See the burning ships again", next: "vision_fire" }
+    {
+      text: "Then why give me visions?",
+      next: "vision_1"
+    }
   ]
 },
 
 /* =========================
-   PROPHECY / VISION HUB
+   VISIONS (NOW PERSONALIZED)
 ========================= */
 
 vision_1: {
-  text: "You see Troy burning—but it has not yet been built in flame.",
+  text:
+    "Apollo speaks inside the vision.\n\n'You always see correctly,' he says.\n'You just arrive too early.'",
   choices: [
-    { text: "Try to interpret it", next: "vision_interpret" },
-    { text: "Scream", next: "courtyard_1", effect: { stats: { sanity: -3 } } }
+    {
+      text: "Try to resist the vision",
+      next: "intro",
+      effect: { stats: { sanity: -2 } }
+    },
+    {
+      text: "Let it continue",
+      next: "vision_loop"
+    }
   ]
 },
 
-vision_2: {
-  text: "Time folds. You are standing in the courtyard, but also in its ruin.",
+vision_apollo_lie: {
+  text:
+    "Apollo laughs.\n\nYou have never heard him laugh before.\n\nThat should worry you more than it does.",
   choices: [
-    { text: "Anchor yourself", next: "intro" },
-    { text: "Let it continue", next: "vision_loop" }
-  ]
-},
-
-vision_fire: {
-  text: "Ships burn on black water. A wooden horse watches.",
-  choices: [
-    { text: "Remember this", next: "intro", effect: { addItem: "prophecy_fragment" } },
-    { text: "Forget it", next: "courtyard_1", effect: { stats: { sanity: +2 } } }
-  ]
-},
-
-/* =========================
-   KEY TEMPLE VISIONS
-========================= */
-
-altar_vision: {
-  text: "Apollo speaks—but only in future tense.",
-  choices: [
-    { text: "Ask for clarity", next: "apollo_silence" },
-    { text: "Accept vision", next: "vision_altar" },
-    { text: "Reject god", next: "temple_inside", effect: { stats: { influence: +1 } } }
-  ]
-},
-
-vision_altar: {
-  text: "You see yourself speaking truth. No one listening. Again. And again.",
-  choices: [
-    { text: "Step back", next: "temple_inside" },
-    { text: "Stay", next: "vision_loop" }
-  ]
-},
-
-apollo_silence: {
-  text: "The god does not answer. Only echoes respond.",
-  choices: [
-    { text: "Break silence", next: "temple_inside", effect: { stats: { influence: +1 } } },
-    { text: "Listen longer", next: "vision_1" }
-  ]
-},
-
-/* =========================
-   SECRET PATHS
-========================= */
-
-whisper_path: {
-  text: "The whispers form a path that does not exist on any map.",
-  choices: [
-    { text: "Follow deeper", next: "oracle_shard_room" },
-    { text: "Turn back", next: "temple_entrance" }
-  ]
-},
-
-oracle_shard_room: {
-  text: "A fractured relic pulses with light that feels like memory.",
-  choices: [
-    { text: "Take it", next: "oracle_shard", effect: { addItem: "oracle_shard" } },
-    { text: "Leave it", next: "temple_inside" }
-  ]
-},
-
-oracle_shard: {
-  text: "The shard burns in your hand. You now remember things that have not happened yet.",
-  choices: [
-    { text: "Return to temple", next: "temple_inside" },
-    { text: "Listen to it", next: "vision_2" }
-  ]
-},
-
-/* =========================
-   SILENCE / ENDING OF ACT I
-========================= */
-
-silence_1: {
-  text: "When you stop speaking, the world briefly makes sense again.",
-  choices: [
-    { text: "Stay silent", next: "intro", effect: { stats: { sanity: +2 } } },
-    { text: "Speak again", next: "courtyard_1" }
+    {
+      text: "Return to reality",
+      next: "intro"
+    }
   ]
 },
 
 vision_loop: {
-  text: "Time repeats incorrectly. You remember this moment from before you lived it.",
+  text:
+    "You are speaking to Apollo.\n\nHe is speaking back.\n\nNeither of you agrees on when this conversation started.",
   choices: [
-    { text: "Wake up", next: "intro", effect: { stats: { sanity: -1 } } },
-    { text: "Continue looping", next: "vision_loop" }
+    {
+      text: "Wake up",
+      next: "intro",
+      effect: { stats: { sanity: -1 } }
+    },
+    {
+      text: "Stay here",
+      next: "vision_loop"
+    }
+  ]
+},
+
+/* =========================
+   SILENCE STATE
+========================= */
+
+silence_state: {
+  text:
+    "You stop speaking.\n\nApollo does not leave.\n\nHe waits.",
+  choices: [
+    {
+      text: "Speak again",
+      next: "apollo_1"
+    },
+    {
+      text: "Remain silent",
+      next: "intro",
+      effect: { stats: { sanity: +2 } }
+    }
   ]
 }
 
