@@ -1,30 +1,43 @@
 export const scenes = {
   intro: {
-    text: "You are Cassandra of Troy. The gods whisper, but no one believes you.",
+    text: "Cassandra of Troy sees the burning future no one believes.",
     choices: [
       {
-        text: "Warn the palace guards",
-        next: "guards"
+        text: "Scream the prophecy to the guards",
+        next: "guards",
+        effect: {
+          stats: { influence: +1 }
+        }
       },
       {
-        text: "Stay silent",
-        next: "silence"
+        text: "Hold your tongue",
+        next: "silence",
+        effect: {
+          stats: { sanity: -5 }
+        }
+      },
+      {
+        text: "Touch the sealed oracle relic",
+        next: "vision",
+        condition: {
+          item: "oracle_relic"
+        }
       }
     ]
   },
 
   guards: {
-    text: "The guards laugh. One of them calls you cursed.",
-    choices: [
-      {
-        text: "Leave the courtyard",
-        next: "silence"
-      }
-    ]
+    text: "They laugh. The future does not bend.",
+    choices: []
   },
 
   silence: {
-    text: "Troy sleeps. Fate sharpens its blade.",
+    text: "The vision eats at your mind.",
+    choices: []
+  },
+
+  vision: {
+    text: "The relic opens your sight. Troy burns in golden fire.",
     choices: []
   }
 };
