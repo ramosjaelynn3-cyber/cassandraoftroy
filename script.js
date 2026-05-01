@@ -1,5 +1,7 @@
 import { scenes } from "./data/scenes.js";
 import { player } from "./data/player.js";
+import { evaluateCondition } from "./systems/conditions.js";
+import { addStat } from "./systems/stats.js";
 
 let currentScene = "intro";
 
@@ -10,24 +12,33 @@ function renderScene(sceneId) {
   const scene = scenes[sceneId];
   currentScene = sceneId;
 
-  // text
   sceneText.innerText = scene.text;
-
-  // choices
   choicesBox.innerHTML = "";
 
-  scene.choices.forEach(choice => {
-    const btn = document.createElement("button");
-    btn.innerText = choice.text;
+  scene.choices
+    .filter(choice => evaluateCondition(player, choice.condition))
+    .forEach(choice => {
+      const btn = document.createElement("button");
+      btn.innerText = choice.text;
 
-    btn.onclick = () => {
-      if (choice.effect) choice.effect(player);
-      renderScene(choice.next);
-    };
+      btn.onclick = () => {
+        // optional stat effects
+        if (choice.effect?.stats) {
+          Object.entries(choice.effect.stats).forEach(([stat, val]) => {
+            addStat(player, stat, val);
+          });
+        }
 
-    choicesBox.appendChild(btn);
-  });
+        // optional item effects
+        if (choice.effect?.addItem) {
+          player.inventory.push(choice.effect.addItem);
+        }
+
+        renderScene(choice.next);
+      };
+
+      choicesBox.appendChild(btn);
+    });
 }
 
-// start game
 renderScene(currentScene);
